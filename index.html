@@ -93,10 +93,6 @@
     height: 100%;
     object-fit: cover; /* 保证图片填满圆圈且不变形 */
 }
-        <button id="music-btn" class="btn btn-outline" style="border-radius: 50%; width: 50px; height: 50px; padding: 0; font-size: 20px; margin: 10px auto;">▶</button>
-<audio id="bg-music" loop>
-    <source src="M800004SydLy0xoxsM.mp3" type="audio/mpeg">
-</audio>
 
         /* 文字排版 */
         h1 {
@@ -167,6 +163,10 @@
             <a href="mailto:你的邮箱@example.com" class="btn btn-outline">联系我</a >
         </div>
     </div>
+            <button id="music-btn" class="btn btn-outline" style="border-radius: 50%; width: 50px; height: 50px; padding: 0; font-size: 20px; margin: 10px auto;">▶</button>
+<audio id="bg-music" loop>
+    <source src="M800004SydLy0xoxsM.mp3" type="audio/mpeg">
+</audio>
 <script>
     const musicBtn = document.getElementById('music-btn');
     const bgMusic = document.getElementById('bg-music');
