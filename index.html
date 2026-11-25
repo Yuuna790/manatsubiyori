@@ -3,188 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manatsubiyori | 简约主页</title>
+    <title>Manatsubiyori | 便当盒主页</title>
     <style>
-        /* 基础重置 */
+        /* --- 基础设置 --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
-        /* 渐变背景（白底带点柔和的色彩，这样毛玻璃才能透出来） */
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    overflow: hidden;
-    
-    /* 👇 换成你自己的背景图片 👇 */
-    background-image: url('https://pictureurl.com/api/storage/file?key=u%2Fanon%2Ff554ad2e-fec6-4703-8e4b-5a1956fc8497-_____20261125124418_77_2.jpg'); 
-    
-    /* 让背景图铺满全屏，不重复，并且固定在屏幕上不随页面滚动 */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-        /* 背景模糊光晕（增加空间感） */
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.6;
-        }
-        .blob-1 {
-            width: 400px;
-            height: 400px;
-            background: #e0e7ff; /* 浅紫蓝 */
-            top: -10%;
-            left: -10%;
-        }
-        .blob-2 {
-            width: 300px;
-            height: 300px;
-            background: #fae8ff; /* 浅粉 */
-            bottom: -10%;
-            right: -10%;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            
+            /* 背景图：确保你上传了 bg.jpg */
+            background-image: url('https://pictureurl.com/api/storage/file?key=u%2Fanon%2Ff554ad2e-fec6-4703-8e4b-5a1956fc8497-_____20261125124418_77_2.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
-        /* 毛玻璃卡片 */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8); /* 半透明白底 */
-            backdrop-filter: blur(20px); /* 核心：背景模糊 */
-            -webkit-backdrop-filter: blur(20px); /* 兼容 Safari */
-            border: 1px solid rgba(255, 255, 255, 0.8); /* 半透明白边 */
-            border-radius: 28px;
-            padding: 50px 40px;
-            max-width: 400px;
+        /* --- 便当盒网格容器 --- */
+        .bento-container {
+            display: grid;
+            /* 划分 3 列，大小自适应 */
+            grid-template-columns: repeat(3, 1fr);
+            /* 划分 2 行 */
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px; /* 格子之间的缝隙 */
             width: 100%;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); /* 非常轻柔的阴影 */
+            max-width: 900px; /* 整个大盒子的最大宽度 */
+            height: 600px; /* 整个盒子的高度 */
+        }
+
+        /* --- 基础毛玻璃卡片样式 --- */
+        .bento-item {
+            background: rgba(255, 255, 255, 0.7); /* 半透明白底 */
+            backdrop-filter: blur(20px); /* 毛玻璃模糊 */
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
         }
-
-        .glass-card:hover {
+        
+        .bento-item:hover {
             transform: translateY(-3px); /* 鼠标悬浮微动 */
         }
 
-        /* 极简头像 */
-  /* 极简头像 */
-.avatar {
-    width: 80px;
-    height: 80px;
-    background: #fff;
-    border-radius: 50%;
-    margin: 0 auto 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    overflow: hidden; /* 新增：超出圆圈的部分剪裁掉 */
-}
-
-/* 新增：控制图片的大小 */
-.avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 保证图片填满圆圈且不变形 */
-}
-
-        /* 文字排版 */
-        h1 {
-            font-size: 22px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-        }
-        p {
-            font-size: 14px;
-            color: #6b7280;
-            line-height: 1.8;
-            margin-bottom: 36px;
+        /* --- 各个格子的大小划分（类似便当盒的分区） --- */
+        
+        /* 1. 主卡片（放名字和头像）：占左边 1 列，跨 2 行 */
+        .item-hero {
+            grid-column: span 1;
+            grid-row: span 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
-        /* 极简按钮 */
+        /* 2. 关于我：占中间 1 列，第 1 行 */
+        .item-about {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        /* 3. 技能/爱好：占右边 1 列，第 1 行 */
+        .item-skills {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        /* 4. 底部横向大长条：跨中间和右边 2 列，第 2 行 */
+        .item-featured {
+            grid-column: span 2;
+            grid-row: span 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- 内部元素美化 --- */
+        
+        /* 头像 */
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 标题和文字 */
+        h1 { font-size: 24px; color: #111827; margin-bottom: 8px; font-weight: 600; }
+        h2 { font-size: 16px; color: #374151; margin-bottom: 15px; font-weight: 600; }
+        p { font-size: 14px; color: #6b7280; line-height: 1.6; }
+        .subtitle { font-size: 13px; color: #9ca3af; margin-bottom: 20px; }
+
+        /* 按钮 */
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+            width: 100%;
+            margin-top: 15px;
         }
         .btn {
-            display: inline-block;
+            display: block;
             text-decoration: none;
             padding: 12px;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 500;
+            text-align: center;
             transition: all 0.2s ease;
         }
-        .btn-black {
+        .btn-black { background: #111827; color: #ffffff; }
+        .btn-black:hover { background: #374151; }
+        .btn-outline { background: transparent; color: #4b5563; border: 1px solid #d1d5db; }
+        .btn-outline:hover { background: #f3f4f6; }
+
+        /* 音乐按钮（小圆球） */
+        .music-btn-wrapper {
+            margin-top: 20px;
+        }
+        .music-btn {
             background: #111827;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: 0.2s;
         }
-        .btn-black:hover {
-            background: #374151;
-            transform: translateY(-1px);
-        }
-        .btn-outline {
-            background: transparent;
+        .music-btn:hover { transform: scale(1.05); }
+
+        /* 标签（用于技能/爱好） */
+        .tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.8);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
             color: #4b5563;
-            border: 1px solid #d1d5db;
+            margin: 0 8px 8px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
-        .btn-outline:hover {
-            background: #f3f4f6;
-            color: #111827;
+
+        /* 手机端适配：屏幕变小的时候变成单列 */
+        @media (max-width: 768px) {
+            .bento-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
+            }
+            .item-hero, .item-about, .item-skills, .item-featured {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 背景光晕 -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+    <!-- 便当盒容器 -->
+    <div class="bento-container">
 
-    <!-- 主体卡片 -->
-    <div class="glass-card">
-        <div class="avatar"><img src="https://pictureurl.com/api/storage/file?key=u%2Fanon%2Fc247b003-04f7-44c5-8a5c-1cb2bfc8ebb8-_____20261125084038_72_2.jpg
-"alt="头像"></div>
-        
-        <h1>Manatsubiyori</h1>
-        <p>吉田宽文之女<br>欢迎来到我的个人主页。</p >
+        <!-- 1. 左侧大块：个人名片 -->
+        <div class="bento-item item-hero">
+            <div class="avatar">
+                <!-- 记得把你之前那个超长链接替换到这里 -->
+                < img src="https://pictureurl.com/api/storage/file?key=你的头像链接.jpg" alt="头像">
+            </div>
+            <h1>Manatsubiyori</h1>
+            <p class="subtitle">吉田宽文之女<br>欢迎来到我的主页</p >
+            
+            <div class="btn-group">
+                <a href=" " class="btn btn-black" target="_blank">GitHub 主页</a >
+                <a href="mailto:你的邮箱@example.com" class="btn btn-outline">联系我</a >
+            </div>
 
-        <div class="btn-group">
-            <a href=" " class="btn btn-black" target="_blank">GitHub 主页</a >
-            <a href="mailto:你的邮箱@example.com" class="btn btn-outline">联系我</a >
+            <!-- 音乐播放器 -->
+            <div class="music-btn-wrapper">
+                <audio id="bg-music" loop>
+                    <!-- 确保你的音乐文件名字没错 -->
+                    <source src="M800004SydLy0xoxsM.mp3" type="audio/mpeg">
+                </audio>
+                <button id="music-btn" class="music-btn">▶</button>
+            </div>
         </div>
-    </div>
-            <button id="music-btn" class="btn btn-outline" style="border-radius: 50%; width: 50px; height: 50px; padding: 0; font-size: 20px; margin: 10px auto;">▶</button>
-<audio id="bg-music" loop>
-    <source src="M800004SydLy0xoxsM.mp3" type="audio/mpeg">
-</audio>
-<script>
-    const musicBtn = document.getElementById('music-btn');
-    const bgMusic = document.getElementById('bg-music');
 
-    musicBtn.addEventListener('click', () => {
-        if (bgMusic.paused) {
-            bgMusic.play();
-            musicBtn.innerHTML = '⏸'; // 播放时显示暂停符号
-        } else {
-            bgMusic.pause();
-            musicBtn.innerHTML = '▶'; // 暂停时显示播放符号
-        }
-    });
-</script>
-    
+        <!-- 2. 右上块：关于我 -->
+        <div class="bento-item item-about">
+            <h2>About Me / 关于我</h2>
+            <p>这里写一两句简单的自我介绍。比如：喜欢动漫、代码和记录生活。希望能在这个小角落留下一点痕迹。</p >
+        </div>
+
+        <!-- 3. 右中块：技能/标签 -->
+        <div class="bento-item item-skills">
+            <h2>Skills / 爱好</h2>
+            <div style="margin-top: 10px;">
+                <span class="tag">前端学习中</span>
+                <span class="tag">二次元</span>
+                <span class="tag">记录生活</span>
+                <span class="tag">Cloudflare</span>
+            </div>
+        </div>
+
+        <!-- 4. 底部大长条：代表作/日记入口 -->
+        <div class="bento-item item-featured">
+            <h2>Featured / 最新动态</h2>
+            <p style="margin-bottom: 15px;">最近在努力折腾自己的个人网站，之后会在这里更新日记和恋爱记录。</p >
+            <!-- 你想加日记页面的按钮可以加在这里 -->
+            <a href="#" class="btn btn-black" style="display: inline-block; width: auto; padding: 10px 20px;">📖 日记本 (待建)</a >
+        </div>
+
+    </div>
+
+    <!-- 音乐控制脚本 -->
+    <script>
+        const musicBtn = document.getElementById('music-btn');
+        const bgMusic = document.getElementById('bg-music');
+
+        musicBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.innerHTML = '⏸';
+            } else {
+                bgMusic.pause();
+                musicBtn.innerHTML = '▶';
+            }
+        });
+    </script>
 </body>
 </html>
