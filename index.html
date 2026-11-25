@@ -1,10 +1,158 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="zh-CN">
+<head>
     <meta charset="UTF-8">
-    <title>我的网站</title>
-  </head>
-  <body>
-<h1>Hi,测试一下新网站，吉田宽文是我爸爸</h1>
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manatsubiyori | 简约主页</title>
+    <style>
+        /* 基础重置 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 渐变背景（白底带点柔和的色彩，这样毛玻璃才能透出来） */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,0.05) 0, transparent 50%), 
+                              radial-gradient(at 50% 0%, hsla(225,39%,30%,0.05) 0, transparent 50%), 
+                              radial-gradient(at 100% 0%, hsla(339,49%,30%,0.05) 0, transparent 50%);
+            background-color: #ffffff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* 背景模糊光晕（增加空间感） */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: #e0e7ff; /* 浅紫蓝 */
+            top: -10%;
+            left: -10%;
+        }
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: #fae8ff; /* 浅粉 */
+            bottom: -10%;
+            right: -10%;
+        }
+
+        /* 毛玻璃卡片 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6); /* 半透明白底 */
+            backdrop-filter: blur(20px); /* 核心：背景模糊 */
+            -webkit-backdrop-filter: blur(20px); /* 兼容 Safari */
+            border: 1px solid rgba(255, 255, 255, 0.8); /* 半透明白边 */
+            border-radius: 28px;
+            padding: 50px 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); /* 非常轻柔的阴影 */
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px); /* 鼠标悬浮微动 */
+        }
+
+        /* 极简头像 */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 文字排版 */
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        p {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 36px;
+        }
+
+        /* 极简按钮 */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .btn-black {
+            background: #111827;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .btn-black:hover {
+            background: #374151;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #4b5563;
+            border: 1px solid #d1d5db;
+        }
+        .btn-outline:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景光晕 -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- 主体卡片 -->
+    <div class="glass-card">
+        <div class="avatar">🌿</div>
+        
+        <h1>Manatsubiyori</h1>
+        <p>保持简约，专注自己。<br>欢迎来到我的个人主页。</p >
+
+        <div class="btn-group">
+            <a href=" " class="btn btn-black" target="_blank">GitHub 主页</a >
+            <a href="mailto:你的邮箱@example.com" class="btn btn-outline">联系我</a >
+        </div>
+    </div>
+
+</body>
 </html>
