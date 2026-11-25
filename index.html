@@ -13,21 +13,25 @@
         }
 
         /* 渐变背景（白底带点柔和的色彩，这样毛玻璃才能透出来） */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-            background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,0.05) 0, transparent 50%), 
-                              radial-gradient(at 50% 0%, hsla(225,39%,30%,0.05) 0, transparent 50%), 
-                              radial-gradient(at 100% 0%, hsla(339,49%,30%,0.05) 0, transparent 50%);
-            background-color: #ffffff;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            overflow: hidden;
-        }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow: hidden;
+    
+    /* 👇 换成你自己的背景图片 👇 */
+    background-image: url('https://pictureurl.com/api/storage/file?key=u%2Fanon%2Ff554ad2e-fec6-4703-8e4b-5a1956fc8497-_____20261125124418_77_2.jpg'); 
+    
+    /* 让背景图铺满全屏，不重复，并且固定在屏幕上不随页面滚动 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
         /* 背景模糊光晕（增加空间感） */
         .blob {
@@ -54,7 +58,7 @@
 
         /* 毛玻璃卡片 */
         .glass-card {
-            background: rgba(255, 255, 255, 0.6); /* 半透明白底 */
+            background: rgba(255, 255, 255, 0.8); /* 半透明白底 */
             backdrop-filter: blur(20px); /* 核心：背景模糊 */
             -webkit-backdrop-filter: blur(20px); /* 兼容 Safari */
             border: 1px solid rgba(255, 255, 255, 0.8); /* 半透明白边 */
